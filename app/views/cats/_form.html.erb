@@ -1,0 +1,36 @@
+<% if cat.persisted? %>
+  <% action_url = cat_url(cat) %>
+<% else %>
+  <% action_url = cats_url %>
+<% end %>
+
+
+<form action= "<%= action_url %>" method="post">
+  <% if cat.persisted?  %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+
+  <label for="name">Name</label>
+  <input type="text" name="cats[name]" value="<%= cat.name %>">
+
+  <label for="date">Date</label>
+  <input type="date" name="cats[birth_date]" value="<%= cat.birth_date %>">
+
+  <label for="color">Color</label>
+  <input type="text" name="cats[color]" value="<%= cat.color %>">
+
+  <label for="sex">Sex</label>
+    <select name="cats[sex]">
+      <option disabled <%= cat.sex ? "" : "selected" %> >--Choose Sex--</option>
+      <option value="f" <%= cat.sex == "f" ? "selected" : "" %> >Female</option>
+      <option value="m" <%= cat.sex == "m" ? "selected" : "" %> >Male</option>
+    </select>
+  <label for="description">Description</label>
+  <textarea name="cats[description]">
+
+     <%= cat.description %>
+
+  </textarea>
+
+  <input type="submit" name="" value=" <%= cat.persisted? ? 'Update cat' : 'Add cat' %>">
+</form>
